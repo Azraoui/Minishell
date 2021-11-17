@@ -11,6 +11,8 @@ int	append_and_output(t_redir *redir, int *out_fd, t_ast *head)
 		fd = open(redir->file_name, O_CREAT | O_RDWR | O_TRUNC, 0666);
 	if (fd < 0)
 		return (1);
+	if (*out_fd != 1)
+		close(*out_fd);
 	*out_fd = fd;
 	head->mode_active = 1;
 	return (0);
@@ -23,9 +25,11 @@ int	input_redir(char *name, int *input_fd)
 	fd = open(name, O_RDONLY);
 	if (fd < 0)
 	{
-		perror("-> I. WAS HERE:");
-		return (1);
+		ft_perror(name, ": No such file or directory", 1);
+		return (g_exit_status);
 	}
+	if (*input_fd)
+		close(*input_fd);
 	*input_fd = fd;
 	return (0);
 }
@@ -39,7 +43,8 @@ int	here_doc(t_redir *redir, int *input_fd, char **env)
 	if (fd < 0)
 	{
 		perror("heredoc :");
-		return (1);
+		g_exit_status = 1;
+		return (g_exit_status);
 	}
 	while (1)
 	{
@@ -73,7 +78,8 @@ int	check_redirections(t_ast *head, int *inp_fd, int *out_fd, char **env)
 				return (1);
 		}
 		else
-			here_doc(head->redirections[i], inp_fd, env);
+			if (here_doc(head->redirections[i], inp_fd, env))
+				return (1);
 		i++;
 	}
 	return (0);

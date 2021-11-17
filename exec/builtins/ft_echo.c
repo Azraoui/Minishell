@@ -26,7 +26,7 @@ int	ft_echo(char **args)
 			if (args[i])
 				ft_putchar_fd(' ', 1);
 		}
-		return (1);
+		return (0);
 	}
 	i = 1;
 	while ((*(args + 1)) && args[i])
@@ -36,5 +36,5 @@ int	ft_echo(char **args)
 			ft_putchar_fd(' ', 1);
 	}
 	ft_putchar_fd('\n', 1);
-	return (1);
+	return (0);
 }

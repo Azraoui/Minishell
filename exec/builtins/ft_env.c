@@ -6,8 +6,11 @@ int ft_env(char **args, char **env)
 	int	i;
 
 	i = 0;
-	if (args[1] != NULL)
-		return (-1);
+	if (*(args + 1) != NULL)
+	{
+		ft_perror(*(args + 1), ": No such file or directory", 127);
+		exit(g_exit_status);
+	}
 	else
 	{
 		while (env[i])
@@ -17,5 +20,5 @@ int ft_env(char **args, char **env)
 			i++;
 		}
 	}
-	return 0;
+	return (0);
 }

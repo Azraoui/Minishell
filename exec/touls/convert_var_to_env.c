@@ -14,7 +14,7 @@ char	*getenv_var(char *str, int *index, char **env)
 	{
 		i++;
 		*index = i;
-		return (ft_itoa(0)); // need modification ?!
+		return (ft_itoa(0));
 	}
 	while (str[i] && (str[i] == '_' || ft_isalpha(str[i]) || ft_isdigit(str[i])))
 		i++;

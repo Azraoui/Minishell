@@ -53,7 +53,7 @@ int		ft_lstat(char *path, int status)
 
 int	ft_isalnum_var(int c)
 {
-	if (ft_isalpha(c) || ft_isdigit(c)|| c == '-' || c == '_')
+	if (ft_isalpha(c) || ft_isdigit(c) || c == '_')
 		return (1);
 	else
 		return (0);

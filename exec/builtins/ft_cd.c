@@ -13,7 +13,7 @@ int	chdir_help2(char **env, char **old_path, char **new_path)
 	}
 	free(*new_path);
 	*new_path = getcwd(NULL, 1000);
-	return (1);
+	return (0);
 }
 
 int	ft_chdir(char **args, char **env, char **new_path, char **old_path)

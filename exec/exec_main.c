@@ -36,7 +36,7 @@ int	is_builtins(char **arg, char ***env, t_ast *head)
 		return (ft_unset(arg, env));
 	else if (!ft_strcmp(arg[0], "exit"))
 		return (ft_exit(arg));
-	return (0);
+	return (-1);
 }
 
 int	ft_traitment(t_ast *head, char ***env, t_pipe *p_pipe)
@@ -49,7 +49,8 @@ int	ft_traitment(t_ast *head, char ***env, t_pipe *p_pipe)
 	stck_pid = NULL;
 	stck_fd = NULL;
 	if (head->nodes_size == 1 && cmd_without_fork(head->nodes[0]->arguments[0]))
-		return (!is_builtins(head->nodes[0]->arguments, env, head->nodes[0]));
+		if (is_builtins(head->nodes[0]->arguments, env, head->nodes[0]) != -1)
+			return (g_exit_status);
 	i = 0;
 	while (i < head->nodes_size)
 	{
@@ -68,7 +69,7 @@ int	ft_traitment(t_ast *head, char ***env, t_pipe *p_pipe)
 			}	
 		i++;
 	}
-	return (0);
+	return (g_exit_status);
 }
 
 void	exec_main(t_ast *head, char ***env)
@@ -80,6 +81,6 @@ void	exec_main(t_ast *head, char ***env)
 		return ;
 	link_proses->last_fd = 0;
 	link_proses->pipe_size = 0;
-	ft_traitment(head, env, link_proses);
+	g_exit_status = ft_traitment(head, env, link_proses);
 	free(link_proses);
 }

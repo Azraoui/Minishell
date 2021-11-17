@@ -73,12 +73,13 @@ int	check_var(char *var, char ***env)
 
 	sp_var = ft_split(var, '=');
 	i = 0;
-	while (sp_var[0][i])
+	while (*sp_var && sp_var[0][i])
 	{
 		if (ft_isdigit(sp_var[0][0]) || !ft_isalnum_var(sp_var[0][i]))
 		{
+			ft_perror(sp_var[0], ": not a valid identifier", 1);
 			split_free(sp_var);
-			return (-1);
+			return (g_exit_status);
 		}
 		i++;
 	}

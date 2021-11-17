@@ -6,7 +6,7 @@
 /*   By: alhamdolilah <alhamdolilah@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 15:24:39 by ytaousi           #+#    #+#             */
-/*   Updated: 2021/11/16 15:22:57 by alhamdolila      ###   ########.fr       */
+/*   Updated: 2021/11/17 20:02:13 by alhamdolila      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ t_ast	*parser_parse(t_parser *parser)
 	node = parser_parse_normal_command(parser);
 	if (!node)
 		return (NULL);
-	g_exit_status = 0;
 	head = init_ast(PIPELINE);
 	head->nodes = (t_ast **)malloc(sizeof(t_ast *));
 	if (!head->nodes)

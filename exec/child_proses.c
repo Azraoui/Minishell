@@ -9,7 +9,7 @@ int		ft_execve(char **args, char **env)
 
 	sp_env = ft_split(ft_getenv_exec(env, "PATH"), ':');
 	if (!sp_env)
-		return (-1);
+		return (1);
 	i = 0;
 	while (!ft_lstat(args[0], 0) && sp_env[i])
 	{
@@ -22,6 +22,8 @@ int		ft_execve(char **args, char **env)
 		free(path);
 		i++;
 	}
+	if (!sp_env[i])
+		exit(ft_perror(args[0], ": command not found", 127));
 	split_free(sp_env);
 	return (execve(args[0], args, env));
 }
@@ -43,7 +45,7 @@ pid_t	child_proses(t_ast *head, char ***env, t_pipe *p_pipe)
 			dup2(p_pipe->fd[1], 1);
 		close(p_pipe->fd[0]);
 		close(p_pipe->fd[1]);
-		if (!is_builtins(head->arguments, env, head))
+		if (is_builtins(head->arguments, env, head) == -1)
 			ft_execve(head->arguments, *env);
 		exit(1);
 	}

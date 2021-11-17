@@ -54,12 +54,13 @@ int	check_var_unset(char *var, char ***env)
 
 	sp_var = ft_split(var, '=');
 	i = 0;
-	while (sp_var[0][i])
+	while (*sp_var && sp_var[0][i])
 	{
 		if (ft_isdigit(sp_var[0][0]) || !ft_isalnum_var(sp_var[0][i]))
 		{
+			ft_perror(sp_var[0], ": not a valid identifier", 1);
 			split_free(sp_var);
-			return (-1);
+			return (g_exit_status);
 		}
 		i++;
 	}
@@ -73,12 +74,13 @@ int	check_var_unset(char *var, char ***env)
 int	ft_unset(char **args, char ***env)
 {
 	int	i;
+	int	ret;
 
 	i = 1;
 	while (args[i])
 	{
-		check_var_unset(args[i], env);
+		ret = check_var_unset(args[i], env);
 		i++;
 	}
-	return (0);
+	return (ret);
 }
