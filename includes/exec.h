@@ -30,8 +30,8 @@ void	split_free(char **ptr);
 void	sort_arr_alphab(char **env);
 int		ppter_len(char **s);
 int		ft_isalnum_var(int c);
-pid_t	child_proses(t_ast *head, char ***env, t_pipe *p_pipe, t_stack **stck_pid);
-int		ft_lstat(char *path);
+pid_t	child_proses(t_ast *head, char ***env, t_pipe *p_pipe);
+int		ft_lstat(char *path, int status);
 int		ft_execve(char **args, char **env);
 int		is_builtins(char **arg, char ***env, t_ast *head);
 int		check_redirections(t_ast *head, int *inp_fd, int *out_fd, char **env);
@@ -41,5 +41,6 @@ void	push_stack(pid_t pid, t_stack **node);
 int		is_empty(t_stack *s);
 t_stack	*init_stack(pid_t data);
 int		stack_size(t_stack *node);
+int		ft_perror(char *cmd, char *message, int error);
 
 #endif

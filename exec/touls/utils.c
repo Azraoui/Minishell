@@ -37,10 +37,16 @@ void	sort_arr_alphab(char **env)
 	}
 }
 
-int		ft_lstat(char *path)
+int		ft_lstat(char *path, int status)
 {
 	struct	stat buf;
 
+	if (status && (*path == '.' || *path == '/'))
+	{
+		if (!(!lstat(path, &buf) && !(buf.st_mode & S_IFDIR)
+		 	&& (buf.st_mode & S_IXUSR)))
+				return (-1);
+	}
 	return (!lstat(path, &buf) && !(buf.st_mode & S_IFDIR)
 		 && (buf.st_mode & S_IXUSR));
 }

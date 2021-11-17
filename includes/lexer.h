@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-azra <ael-azra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alhamdolilah <alhamdolilah@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 18:36:43 by ytaousi           #+#    #+#             */
-/*   Updated: 2021/11/14 19:02:03 by ael-azra         ###   ########.fr       */
+/*   Updated: 2021/11/16 15:21:54 by alhamdolila      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 # include "token.h"
 # include "ast.h"
 
-int	exit_status;
+int	g_exit_status;
 
 typedef struct s_node
 {

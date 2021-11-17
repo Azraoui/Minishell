@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-azra <ael-azra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alhamdolilah <alhamdolilah@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 16:21:03 by ytaousi           #+#    #+#             */
-/*   Updated: 2021/11/14 19:02:11 by ael-azra         ###   ########.fr       */
+/*   Updated: 2021/11/16 15:22:51 by alhamdolila      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ char	*collect_exit(t_lexer *lexer)
 {
 	char	*str;
 
-	str = ft_itoa(exit_status);
+	str = ft_itoa(g_exit_status);
 	if (!str)
 		raise_error(errno);
 	lexer_advance(lexer);

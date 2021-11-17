@@ -43,9 +43,11 @@ int	ft_traitment(t_ast *head, char ***env, t_pipe *p_pipe)
 {
 	pid_t	p_id;
 	t_stack	*stck_pid;
+	t_stack	*stck_fd;
 	int		i;
 
 	stck_pid = NULL;
+	stck_fd = NULL;
 	if (head->nodes_size == 1 && cmd_without_fork(head->nodes[0]->arguments[0]))
 		return (!is_builtins(head->nodes[0]->arguments, env, head->nodes[0]));
 	i = 0;
@@ -54,9 +56,16 @@ int	ft_traitment(t_ast *head, char ***env, t_pipe *p_pipe)
 		head->nodes[i]->mode_active = 0;
 		pipe(p_pipe->fd);
 		p_pipe->pipe_size += 1;
-		p_id = child_proses(head->nodes[i], env, p_pipe, &stck_pid);
+		p_id = child_proses(head->nodes[i], env, p_pipe);
 		p_pipe->last_fd = p_pipe->fd[0];
-		close(p_pipe->fd[0]);
+		push_stack(p_id, &stck_pid);
+		push_stack(p_pipe->fd[0], &stck_fd);
+		if (p_pipe->pipe_size == head->nodes_size)
+			while(stack_size(stck_pid))
+			{
+				close(pop_stack(&stck_fd));
+				waitpid(pop_stack(&stck_pid), NULL, 0);
+			}	
 		i++;
 	}
 	return (0);

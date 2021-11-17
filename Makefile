@@ -14,7 +14,8 @@ SRCS = lexer/lexer.c lexer/lexer_utils.c lexer/quotes.c lexer/token.c \
 		./exec/builtins/ft_export.c ./exec/builtins/ft_pwd.c \
 		./exec/builtins/ft_unset.c ./exec/touls/ft_getenv_exec.c \
 		./exec/touls/utils.c ./exec/exec_main.c ./exec/child_proses.c \
-		./exec/redirection_managment.c ./exec/touls/convert_var_to_env.c ./exec/touls/stack.c
+		./exec/redirection_managment.c ./exec/touls/convert_var_to_env.c \
+		./exec/touls/stack.c ./exec/touls/ft_perror.c
 
 
 OBJECTS = $(SRCS:.c=.o)
