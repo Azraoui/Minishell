@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_unset.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ael-azra <ael-azra@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/18 18:04:42 by ael-azra          #+#    #+#             */
+/*   Updated: 2021/11/21 12:48:26 by ael-azra         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../../includes/exec.h"
 
@@ -24,13 +35,14 @@ char	**delet_var(char ***env, int index)
 		tmp[i++] = ft_strdup(*(*env + (j++)));
 	}
 	tmp[i] = NULL;
+	split_free(*env);
 	return (tmp);
 }
 
 int	find_var_unset(char *var, char **env)
 {
-	char **sp_var;
-	int	i;
+	char	**sp_var;
+	int		i;
 
 	i = 0;
 	while (env[i])
@@ -68,19 +80,33 @@ int	check_var_unset(char *var, char ***env)
 	split_free(sp_var);
 	if (i != -1)
 		*env = delet_var(env, i);
-	return (0);
+	g_exit_status = 0;
+	return (g_exit_status);
 }
 
 int	ft_unset(char **args, char ***env)
 {
 	int	i;
-	int	ret;
+	int	*ret;
 
 	i = 1;
-	while (args[i])
+	ret = malloc(sizeof(int) * ppter_len(args));
+	while (*(args + i) && args[i])
 	{
-		ret = check_var_unset(args[i], env);
+		ret[i] = check_var_unset(args[i], env);
 		i++;
 	}
-	return (ret);
+	i = 0;
+	while (++i < ppter_len(args))
+	{
+		if (ret[i])
+		{
+			g_exit_status = ret[i];
+			free(ret);
+			return (g_exit_status);
+		}
+	}
+	free(ret);
+	g_exit_status = 0;
+	return (g_exit_status);
 }

@@ -6,7 +6,7 @@
 /*   By: ael-azra <ael-azra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 18:34:40 by ytaousi           #+#    #+#             */
-/*   Updated: 2021/11/14 15:41:41 by ael-azra         ###   ########.fr       */
+/*   Updated: 2021/11/20 23:09:13 by ael-azra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ typedef struct s_ast
 	t_redir			**redirections;
 	int				redirections_size;
 	int				mode_active;
+	int				n_index;
 }				t_ast;
 
 t_ast	*init_ast(t_ast_type type);

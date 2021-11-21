@@ -6,7 +6,7 @@
 /*   By: ael-azra <ael-azra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 10:39:13 by ytaousi           #+#    #+#             */
-/*   Updated: 2021/11/14 19:01:29 by ael-azra         ###   ########.fr       */
+/*   Updated: 2021/11/21 16:36:06 by ael-azra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ char	*get_next_word(char *env, int *index)
 	int		index_i;
 	int		index_f;
 
+	*index = 0;
 	while (env[*index] == ' ' || env[*index] == '\t')
 		*index += 1;
 	index_i = *index;
@@ -37,7 +38,6 @@ char	*lexer_split_words(t_lexer *lexer,
 	char	*tmp;
 	int		i;
 
-	i = 0;
 	while (number_ofwords-- > 0)
 	{
 		word = get_next_word(environement_var, &i);
@@ -73,7 +73,7 @@ char	*ft_getenv(char *name, t_node *head)
 	while (1)
 	{
 		dst = ft_split(current->data, '=');
-		if (strcmp(dst[0], name) == 0)
+		if (ft_strcmp(dst[0], name) == 0)
 			break ;
 		free(dst[0]);
 		free(dst[1]);
@@ -104,6 +104,8 @@ char	*collect_environement(t_lexer *lexer)
 		raise_error(errno);
 	tmp2 = str;
 	str = ft_getenv(str, lexer->environement);
+	free(tmp2);
+	tmp2 = str;
 	str = ft_oneofthose(str);
 	free(tmp2);
 	return (str);
@@ -118,9 +120,9 @@ void	lexer_collect_environement(t_lexer *lexer, char **ret_value)
 	if (lexer->current_char == '"')
 		tmp = ft_substr(lexer->line, lexer->current_index - 1, 1);
 	else if (lexer->current_char == '?')
-    {
-         tmp = collect_exit(lexer);;
-    }
+	{
+		tmp = collect_exit(lexer);
+	}
 	else if (lexer->current_char != '_' && !ft_isalpha(lexer->current_char))
 	{
 		tmp = ft_substr(lexer->line, lexer->current_index - 1, 2);

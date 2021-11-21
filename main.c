@@ -3,26 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alhamdolilah <alhamdolilah@student.42.f    +#+  +:+       +#+        */
+/*   By: ael-azra <ael-azra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 18:47:48 by ytaousi           #+#    #+#             */
-/*   Updated: 2021/11/16 12:50:35 by alhamdolila      ###   ########.fr       */
+/*   Updated: 2021/11/21 16:20:25 by ael-azra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./includes/exec.h"
 
-void	launch_program(char *line, t_node *envs, char ***env)
+void	launch_program(char *line, t_node **envs)
 {
 	t_lexer		*lexer;
 	t_parser	*parser;
 	t_ast		*head;
 
-	lexer = init_lexer(line, envs);
+	lexer = init_lexer(line, *envs);
 	parser = init_parser(lexer);
 	head = parser_parse(parser);
-	// print_them(head);
-	exec_main(head, env);
+	exec_main(head, envs);
 	free_ast_pipeline(head);
 	ft_free_parser(parser);
 }
@@ -42,12 +41,29 @@ int	check_error_line(char **line)
 	return (1);
 }
 
+int	skip_space(char **line)
+{
+	int		i;
+	char	*s;
+
+	i = 0;
+	s = *line;
+	while (s[i] && s[i] == ' ')
+		i++;
+	if (!s[i])
+	{
+		free(*line);
+		return (0);
+	}
+	return (1);
+}
+
 int	main(int ac, char **av, char **envp)
 {
 	char		*line;
 	t_node		*envs;
 
-	if (ac || av || envp)
+	if (ac || av)
 		;
 	envs = NULL;
 	envs = ft_tab2lst(envs, envp);
@@ -56,10 +72,12 @@ int	main(int ac, char **av, char **envp)
 	while (1)
 	{
 		line = readline("Minish :> ");
+		if (!skip_space(&line))
+			continue ;
 		if (check_error_line(&line) == 0)
 			continue ;
 		add_history(line);
-		launch_program(line, envs, &envp);
+		launch_program(line, &envs);
 		free(line);
 	}
 	return (0);

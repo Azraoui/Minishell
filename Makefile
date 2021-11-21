@@ -1,6 +1,6 @@
 NAME = minishell
 
-CFLAGS = -Wall -Werror -Wextra
+# CFLAGS = -Wall -Werror -Wextra
 
 LIBFT = libft/libft.a
 
@@ -15,15 +15,16 @@ SRCS = lexer/lexer.c lexer/lexer_utils.c lexer/quotes.c lexer/token.c \
 		./exec/builtins/ft_unset.c ./exec/touls/ft_getenv_exec.c \
 		./exec/touls/utils.c ./exec/exec_main.c ./exec/child_proses.c \
 		./exec/redirection_managment.c ./exec/touls/convert_var_to_env.c \
-		./exec/touls/stack.c ./exec/touls/ft_perror.c
-
+		./exec/touls/stack.c ./exec/touls/ft_perror.c ./exec/touls/utils2.c \
+		./exec/touls/utils3.c ./exec/heredoc.c
 
 OBJECTS = $(SRCS:.c=.o)
 
 all : $(NAME) $(LIBFT)
 
 $(NAME) :
-	@gcc $(CFLAGS) $(SRCS) libft/*.c -o $(NAME) -lreadline
+	@gcc $(CFLAGS) $(SRCS) libft/*.c -o $(NAME) -lreadline -L /Users/$(USER)/.brew/opt/readline/lib \
+			   -I /Users/$(USER)/.brew/opt/readline/include
 
 $(LIBFT) :
 	@make -C libft/

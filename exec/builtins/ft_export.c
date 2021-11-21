@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_export.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ael-azra <ael-azra@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/18 18:04:30 by ael-azra          #+#    #+#             */
+/*   Updated: 2021/11/21 16:26:23 by ael-azra         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../../includes/exec.h"
 
@@ -43,13 +54,14 @@ char	**insert_var(char *var, char ***env)
 	}
 	tmp[i++] = ft_strdup(var);
 	tmp[i] = NULL;
+	split_free(*env);
 	return (tmp);
 }
 
 int	find_var(char *var, char **env)
 {
-	char **sp_var;
-	int	i;
+	char	**sp_var;
+	int		i;
 
 	i = 0;
 	while (env[i])
@@ -72,8 +84,8 @@ int	check_var(char *var, char ***env)
 	int		i;
 
 	sp_var = ft_split(var, '=');
-	i = 0;
-	while (*sp_var && sp_var[0][i])
+	i = -1;
+	while (*sp_var && sp_var[0][++i])
 	{
 		if (ft_isdigit(sp_var[0][0]) || !ft_isalnum_var(sp_var[0][i]))
 		{
@@ -81,27 +93,42 @@ int	check_var(char *var, char ***env)
 			split_free(sp_var);
 			return (g_exit_status);
 		}
-		i++;
 	}
 	i = find_var(sp_var[0], *env);
-	split_free(sp_var);
 	if (i == -1)
 		*env = insert_var(var, env);
 	else
-		*(*env + i) = var;
-	return (0);
+		export_norm(var, i, env, sp_var[1]);
+	split_free(sp_var);
+	g_exit_status = 0;
+	return (g_exit_status);
 }
 
 int	ft_export(char **args, char ***env, int fd)
 {
-	int		i;
-	int		ret;
+	int	i;
+	int	*ret;
 
 	i = 1;
-	ret = 0;
-	if (args[i] == NULL)
+	ret = malloc(sizeof(int) * ppter_len(args));
+	if (*(args + i) == NULL)
 		print_env(*env, fd);
-	while (args[i])
-		ret = check_var(args[i++], env);
-	return (ret);
+	while (*(args + i) && args[i])
+	{
+		ret[i] = check_var(args[i], env);
+		i++;
+	}
+	i = 0;
+	while (++i < ppter_len(args))
+	{
+		if (ret[i])
+		{
+			g_exit_status = ret[i];
+			free(ret);
+			return (g_exit_status);
+		}
+	}
+	free(ret);
+	g_exit_status = 0;
+	return (g_exit_status);
 }

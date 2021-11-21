@@ -3,25 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alhamdolilah <alhamdolilah@student.42.f    +#+  +:+       +#+        */
+/*   By: ael-azra <ael-azra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 16:21:03 by ytaousi           #+#    #+#             */
-/*   Updated: 2021/11/16 15:22:51 by alhamdolila      ###   ########.fr       */
+/*   Updated: 2021/11/21 16:34:42 by ael-azra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/parser.h"
-
-char	*collect_exit(t_lexer *lexer)
-{
-	char	*str;
-
-	str = ft_itoa(g_exit_status);
-	if (!str)
-		raise_error(errno);
-	lexer_advance(lexer);
-	return (str);
-}
 
 char	*ft_depannage(char *environement_var,
 		t_lexer *lexer, int size, char **str)

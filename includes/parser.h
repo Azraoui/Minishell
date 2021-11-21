@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ytaousi <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: ael-azra <ael-azra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 18:40:54 by ytaousi           #+#    #+#             */
-/*   Updated: 2021/11/09 17:21:30 by ytaousi          ###   ########.fr       */
+/*   Updated: 2021/11/21 16:35:14 by ael-azra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,5 +52,7 @@ void			print_pipeline(t_ast *node);
 void			print_arguments(t_ast *node);
 void			print_redirections(t_redir *node);
 char			*ft_oneofthose(char *str);
-int				ft_oneofthose2(size_t number_ofwords, char *environement_var, t_lexer *lexer, int i);
+char			*collect_exit(t_lexer *lexer);
+int				ft_oneofthose2(size_t number_ofwords,
+					char *environement_var, t_lexer *lexer, int i);
 #endif

@@ -1,36 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_env.c                                           :+:      :+:    :+:   */
+/*   utils3.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ael-azra <ael-azra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/18 18:04:17 by ael-azra          #+#    #+#             */
-/*   Updated: 2021/11/21 12:45:35 by ael-azra         ###   ########.fr       */
+/*   Created: 2021/11/19 15:10:33 by ael-azra          #+#    #+#             */
+/*   Updated: 2021/11/21 16:26:31 by ael-azra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/exec.h"
 
-int	ft_env(char **args, char **env)
+int	find_herdoc(t_ast *head)
 {
 	int	i;
 
 	i = 0;
-	if (*(args + 1) != NULL)
+	while (i < head->redirections_size)
 	{
-		ft_perror(*(args + 1), ": No such file or directory", 127);
-		exit(g_exit_status);
+		if (head->redirections[i]->type == HERE_DOC_REDIR)
+			return (1);
+		i++;
 	}
-	else
+	return (0);
+}
+
+void	export_norm(char *var, int i, char ***env, char *value)
+{
+	if (value)
 	{
-		while (env[i])
-		{
-			if (ft_strchr(env[i], '='))
-				ft_putendl_fd(env[i], 1);
-			i++;
-		}
+		free(*(*env + i));
+		*(*env + i) = ft_strdup(var);
 	}
-	g_exit_status = 0;
-	return (g_exit_status);
 }

@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_exit.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ael-azra <ael-azra@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/18 18:04:24 by ael-azra          #+#    #+#             */
+/*   Updated: 2021/11/21 12:46:05 by ael-azra         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../../includes/exec.h"
 
@@ -17,7 +28,7 @@ int	find_numeric(char *s)
 	return (1);
 }
 
-int ft_exit(char **args)
+int	ft_exit(char **args)
 {
 	if (!*(args + 1))
 	{
@@ -39,6 +50,6 @@ int ft_exit(char **args)
 	else
 	{
 		ft_perror(*args, ": too many arguments", 1);
-		return(g_exit_status);
+		return (g_exit_status);
 	}
 }

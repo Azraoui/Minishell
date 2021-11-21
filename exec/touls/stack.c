@@ -6,7 +6,7 @@
 /*   By: ael-azra <ael-azra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 13:21:10 by ael-azra          #+#    #+#             */
-/*   Updated: 2021/11/16 09:54:28 by ael-azra         ###   ########.fr       */
+/*   Updated: 2021/11/21 01:34:10 by ael-azra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	push_stack(pid_t pid, t_stack **node)
 	*node = s;
 }
 
-int		stack_size(t_stack *node)
+int	stack_size(t_stack *node)
 {
 	int	len;
 
