@@ -6,7 +6,7 @@
 /*   By: ael-azra <ael-azra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 18:47:48 by ytaousi           #+#    #+#             */
-/*   Updated: 2021/11/21 16:20:25 by ael-azra         ###   ########.fr       */
+/*   Updated: 2021/11/21 17:08:11 by ael-azra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,21 +26,6 @@ void	launch_program(char *line, t_node **envs)
 	ft_free_parser(parser);
 }
 
-int	check_error_line(char **line)
-{
-	if (!(*line))
-	{
-		printf("SIGQUIT quited from here got Y'a\n");
-		exit(0);
-	}
-	if (*line[0] == '\0')
-	{
-		free(*line);
-		return (0);
-	}
-	return (1);
-}
-
 int	skip_space(char **line)
 {
 	int		i;
@@ -51,6 +36,23 @@ int	skip_space(char **line)
 	while (s[i] && s[i] == ' ')
 		i++;
 	if (!s[i])
+	{
+		free(*line);
+		return (0);
+	}
+	return (1);
+}
+
+int	check_error_line(char **line)
+{
+	if (!(*line))
+	{
+		printf("SIGQUIT quited from here got Y'a\n");
+		exit(0);
+	}
+	if (!skip_space(line))
+		return (0);
+	if (*line[0] == '\0')
 	{
 		free(*line);
 		return (0);
@@ -72,8 +74,6 @@ int	main(int ac, char **av, char **envp)
 	while (1)
 	{
 		line = readline("Minish :> ");
-		if (!skip_space(&line))
-			continue ;
 		if (check_error_line(&line) == 0)
 			continue ;
 		add_history(line);

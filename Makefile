@@ -31,8 +31,10 @@ $(LIBFT) :
 
 clean:
 	@rm -f $(NAME)
+	@make -C libft/ clean
 
 fclean: clean
 	@rm -f $(OBJECTS)
+	@make -C libft/ fclean
 
 re: fclean all
