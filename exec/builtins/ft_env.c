@@ -6,7 +6,7 @@
 /*   By: ael-azra <ael-azra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/18 18:04:17 by ael-azra          #+#    #+#             */
-/*   Updated: 2021/11/21 12:45:35 by ael-azra         ###   ########.fr       */
+/*   Updated: 2021/11/22 03:30:13 by ael-azra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	ft_env(char **args, char **env)
 	if (*(args + 1) != NULL)
 	{
 		ft_perror(*(args + 1), ": No such file or directory", 127);
-		exit(g_exit_status);
+		exit(g_var.ex_sts);
 	}
 	else
 	{
@@ -31,6 +31,6 @@ int	ft_env(char **args, char **env)
 			i++;
 		}
 	}
-	g_exit_status = 0;
-	return (g_exit_status);
+	g_var.ex_sts = 0;
+	return (g_var.ex_sts);
 }

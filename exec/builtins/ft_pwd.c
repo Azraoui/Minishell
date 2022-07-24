@@ -6,7 +6,7 @@
 /*   By: ael-azra <ael-azra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/18 18:04:35 by ael-azra          #+#    #+#             */
-/*   Updated: 2021/11/18 18:04:38 by ael-azra         ###   ########.fr       */
+/*   Updated: 2021/11/22 03:30:26 by ael-azra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,6 @@ int	ft_pwd(void)
 	else
 		perror("");
 	free(path);
-	g_exit_status = 0;
-	return (g_exit_status);
+	g_var.ex_sts = 0;
+	return (g_var.ex_sts);
 }

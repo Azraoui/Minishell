@@ -6,7 +6,7 @@
 /*   By: ael-azra <ael-azra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/18 18:05:24 by ael-azra          #+#    #+#             */
-/*   Updated: 2021/11/21 15:43:16 by ael-azra         ###   ########.fr       */
+/*   Updated: 2021/11/22 03:29:07 by ael-azra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	input_redir(char *name, int *input_fd)
 	if (fd < 0)
 	{
 		ft_perror(name, ": No such file or directory", 1);
-		return (g_exit_status);
+		return (g_var.ex_sts);
 	}
 	if (*input_fd)
 		close(*input_fd);
@@ -54,8 +54,8 @@ int	here_doc(t_redir *redir, int *input_fd, char **env, char *fd_name)
 	if (fd < 0)
 	{
 		perror("heredoc :");
-		g_exit_status = 1;
-		return (g_exit_status);
+		g_var.ex_sts = 1;
+		return (g_var.ex_sts);
 	}
 	while (1)
 	{

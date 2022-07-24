@@ -6,7 +6,7 @@
 /*   By: ael-azra <ael-azra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/18 18:05:19 by ael-azra          #+#    #+#             */
-/*   Updated: 2021/11/21 13:59:18 by ael-azra         ###   ########.fr       */
+/*   Updated: 2021/11/22 04:51:24 by ael-azra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ int	is_builtins(char **arg, char ***env, t_ast *head)
 	return (-1);
 }
 
-void	norm_help2(t_ast *head, char ***env, t_pipe *p_pipe, t_stack **stck)
+void	norm_help_traitment1(t_ast *head, char ***env,
+		t_pipe *p_pipe, t_stack **stck)
 {
 	pid_t	p_id;
 	int		i;
@@ -68,12 +69,7 @@ void	norm_help2(t_ast *head, char ***env, t_pipe *p_pipe, t_stack **stck)
 		if (p_pipe->pipe_size == head->nodes_size)
 		{
 			close(pop_stack(&stck[1]));
-			waitpid(pop_stack(&stck[0]), &g_exit_status, 0);
-			while (stack_size(stck[0]))
-			{
-				close(pop_stack(&stck[1]));
-				waitpid(pop_stack(&stck[0]), NULL, 0);
-			}
+			norm_help_traitment2(&stck[0], &stck[1]);
 		}
 		i++;
 	}
@@ -87,29 +83,32 @@ int	ft_traitment(t_ast *head, char ***env, t_pipe *p_pipe)
 	if (head->nodes_size == 1 && cmd_without_fork(head->nodes[0]->arguments[0]))
 	{
 		if (is_builtins(head->nodes[0]->arguments, env, head->nodes[0]) != -1)
-			return (g_exit_status);
+			return (g_var.ex_sts);
 	}
 	else
 	{
 		stck = (t_stack **)malloc(sizeof(t_stack *) * 2);
 		stck[0] = NULL;
 		stck[1] = NULL;
-		norm_help2(head, env, p_pipe, stck);
+		norm_help_traitment1(head, env, p_pipe, stck);
+		g_var.child_id = 0;
 		free(stck);
 	}
-	return (WEXITSTATUS(g_exit_status));
+	return (g_var.ex_sts);
 }
 
 void	exec_main(t_ast *head, t_node **envs)
 {
 	t_pipe	*link_proses;
 	char	**env;
+	int		exit_st;
 
 	if (!head || !envs)
 	{
-		g_exit_status = 258;
+		g_var.ex_sts = 258;
 		return ;
 	}
+	skip_empty_arg(&head);
 	env = node_to_array(*envs);
 	free_node(envs);
 	link_proses = (t_pipe *)malloc(sizeof(t_pipe));
@@ -117,7 +116,11 @@ void	exec_main(t_ast *head, t_node **envs)
 		return ;
 	link_proses->last_fd = 0;
 	link_proses->pipe_size = 0;
-	g_exit_status = ft_traitment(head, &env, link_proses);
+	exit_st = ft_traitment(head, &env, link_proses);
+	if (WIFEXITED(exit_st))
+		g_var.ex_sts = WEXITSTATUS(g_var);
+	else
+		g_var.ex_sts = g_var.signal_sts;
 	*envs = array_to_node(env);
 	split_free(env);
 	free(link_proses);

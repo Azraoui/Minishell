@@ -6,7 +6,7 @@
 /*   By: ael-azra <ael-azra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/18 18:04:53 by ael-azra          #+#    #+#             */
-/*   Updated: 2021/11/19 16:50:10 by ael-azra         ###   ########.fr       */
+/*   Updated: 2021/11/21 23:10:53 by ael-azra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,13 @@ void	split_free(char **ptr)
 
 	i = 0;
 	while (ptr[i])
-		free(ptr[i++]);
+	{
+		free(ptr[i]);
+		ptr[i] = NULL;
+		i++;
+	}
 	free(ptr);
+	ptr = NULL;
 }
 
 char	*ft_getenv_exec(char **env, char *name)

@@ -6,7 +6,7 @@
 /*   By: ael-azra <ael-azra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/18 18:04:42 by ael-azra          #+#    #+#             */
-/*   Updated: 2021/11/21 12:48:26 by ael-azra         ###   ########.fr       */
+/*   Updated: 2021/11/22 03:30:32 by ael-azra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int	check_var_unset(char *var, char ***env)
 		{
 			ft_perror(sp_var[0], ": not a valid identifier", 1);
 			split_free(sp_var);
-			return (g_exit_status);
+			return (g_var.ex_sts);
 		}
 		i++;
 	}
@@ -80,8 +80,8 @@ int	check_var_unset(char *var, char ***env)
 	split_free(sp_var);
 	if (i != -1)
 		*env = delet_var(env, i);
-	g_exit_status = 0;
-	return (g_exit_status);
+	g_var.ex_sts = 0;
+	return (g_var.ex_sts);
 }
 
 int	ft_unset(char **args, char ***env)
@@ -101,12 +101,12 @@ int	ft_unset(char **args, char ***env)
 	{
 		if (ret[i])
 		{
-			g_exit_status = ret[i];
+			g_var.ex_sts = ret[i];
 			free(ret);
-			return (g_exit_status);
+			return (g_var.ex_sts);
 		}
 	}
 	free(ret);
-	g_exit_status = 0;
-	return (g_exit_status);
+	g_var.ex_sts = 0;
+	return (g_var.ex_sts);
 }

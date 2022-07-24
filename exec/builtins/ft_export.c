@@ -6,7 +6,7 @@
 /*   By: ael-azra <ael-azra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/18 18:04:30 by ael-azra          #+#    #+#             */
-/*   Updated: 2021/11/21 16:26:23 by ael-azra         ###   ########.fr       */
+/*   Updated: 2021/11/22 03:28:06 by ael-azra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	print_env(char **env, int fd)
 {
 	int		i;
 	char	**line;
+	char	*tmp;
 
 	i = 0;
 	sort_arr_alphab(env);
@@ -24,10 +25,11 @@ void	print_env(char **env, int fd)
 		line = ft_split(env[i], '=');
 		ft_putstr_fd("declare -x ", fd);
 		ft_putstr_fd(line[0], fd);
-		if (ft_strchr(env[i], '='))
+		tmp = ft_strchr(env[i], '=');
+		if (tmp)
 		{
 			ft_putstr_fd("=\"", fd);
-			ft_putstr_fd(line[1], fd);
+			ft_putstr_fd(tmp + 1, fd);
 			ft_putstr_fd("\"", fd);
 		}
 		ft_putchar_fd('\n', fd);
@@ -91,7 +93,7 @@ int	check_var(char *var, char ***env)
 		{
 			ft_perror(sp_var[0], ": not a valid identifier", 1);
 			split_free(sp_var);
-			return (g_exit_status);
+			return (g_var.ex_sts);
 		}
 	}
 	i = find_var(sp_var[0], *env);
@@ -100,8 +102,8 @@ int	check_var(char *var, char ***env)
 	else
 		export_norm(var, i, env, sp_var[1]);
 	split_free(sp_var);
-	g_exit_status = 0;
-	return (g_exit_status);
+	g_var.ex_sts = 0;
+	return (g_var.ex_sts);
 }
 
 int	ft_export(char **args, char ***env, int fd)
@@ -123,12 +125,12 @@ int	ft_export(char **args, char ***env, int fd)
 	{
 		if (ret[i])
 		{
-			g_exit_status = ret[i];
+			g_var.ex_sts = ret[i];
 			free(ret);
-			return (g_exit_status);
+			return (g_var.ex_sts);
 		}
 	}
 	free(ret);
-	g_exit_status = 0;
-	return (g_exit_status);
+	g_var.ex_sts = 0;
+	return (g_var.ex_sts);
 }

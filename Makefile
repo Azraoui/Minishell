@@ -1,6 +1,6 @@
 NAME = minishell
 
-# CFLAGS = -Wall -Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra
 
 LIBFT = libft/libft.a
 
@@ -16,7 +16,7 @@ SRCS = lexer/lexer.c lexer/lexer_utils.c lexer/quotes.c lexer/token.c \
 		./exec/touls/utils.c ./exec/exec_main.c ./exec/child_proses.c \
 		./exec/redirection_managment.c ./exec/touls/convert_var_to_env.c \
 		./exec/touls/stack.c ./exec/touls/ft_perror.c ./exec/touls/utils2.c \
-		./exec/touls/utils3.c ./exec/heredoc.c
+		./exec/touls/utils3.c ./exec/heredoc.c ./gnl.c
 
 OBJECTS = $(SRCS:.c=.o)
 

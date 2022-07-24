@@ -6,7 +6,7 @@
 /*   By: ael-azra <ael-azra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 18:40:54 by ytaousi           #+#    #+#             */
-/*   Updated: 2021/11/21 16:35:14 by ael-azra         ###   ########.fr       */
+/*   Updated: 2021/11/22 04:17:21 by ael-azra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,15 @@
 # define PARSER_H
 
 # include "lexer.h"
+
+typedef struct s_var
+{
+	int			ex_sts;
+	int			signal_sts;
+	int			child_id;
+}				t_var;
+
+t_var	g_var;
 
 typedef struct s_parser
 {

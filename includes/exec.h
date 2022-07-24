@@ -6,7 +6,7 @@
 /*   By: ael-azra <ael-azra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/18 18:03:47 by ael-azra          #+#    #+#             */
-/*   Updated: 2021/11/21 16:28:36 by ael-azra         ###   ########.fr       */
+/*   Updated: 2021/11/22 04:50:46 by ael-azra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "parser.h"
 # include <limits.h>
+# include "../get_next_line.h"
 
 typedef struct s_pipe
 {
@@ -64,5 +65,7 @@ void	heredoc_managment(t_ast **head, char **env);
 int		here_doc(t_redir *redir, int *input_fd, char **env, char *fd_name);
 char	*ft_strjoin_free(char const *s1, char *s2);
 void	export_norm(char *var, int i, char ***env, char *value);
+void	skip_empty_arg(t_ast **head);
+void	norm_help_traitment2(t_stack **stack_1, t_stack **stack_2);
 
 #endif

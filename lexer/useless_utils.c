@@ -6,7 +6,7 @@
 /*   By: ael-azra <ael-azra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 16:17:51 by ael-azra          #+#    #+#             */
-/*   Updated: 2021/11/21 16:34:51 by ael-azra         ###   ########.fr       */
+/*   Updated: 2021/11/22 03:32:17 by ael-azra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ char	*collect_exit(t_lexer *lexer)
 {
 	char	*str;
 
-	str = ft_itoa(g_exit_status);
+	str = ft_itoa(g_var.ex_sts);
 	if (!str)
 		raise_error(errno);
 	lexer_advance(lexer);

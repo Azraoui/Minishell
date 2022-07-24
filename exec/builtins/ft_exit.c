@@ -6,7 +6,7 @@
 /*   By: ael-azra <ael-azra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/18 18:04:24 by ael-azra          #+#    #+#             */
-/*   Updated: 2021/11/21 12:46:05 by ael-azra         ###   ########.fr       */
+/*   Updated: 2021/11/22 03:30:19 by ael-azra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,17 +39,17 @@ int	ft_exit(char **args)
 	{
 		ft_putendl_fd("exit", 1);
 		ft_perror(*args, ": numeric argument required", 255);
-		exit(g_exit_status);
+		exit(g_var.ex_sts);
 	}
 	else if (ppter_len(args) == 2)
 	{
-		g_exit_status = (unsigned char)ft_atoi(*(args + 1));
+		g_var.ex_sts = (unsigned char)ft_atoi(*(args + 1));
 		ft_putendl_fd("exit", 1);
-		exit(g_exit_status);
+		exit(g_var.ex_sts);
 	}
 	else
 	{
 		ft_perror(*args, ": too many arguments", 1);
-		return (g_exit_status);
+		return (g_var.ex_sts);
 	}
 }

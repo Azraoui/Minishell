@@ -6,7 +6,7 @@
 /*   By: ael-azra <ael-azra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/18 18:04:12 by ael-azra          #+#    #+#             */
-/*   Updated: 2021/11/21 14:10:01 by ael-azra         ###   ########.fr       */
+/*   Updated: 2021/11/22 04:05:17 by ael-azra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	ft_echo(char **args)
 {
 	int		i;
 
-	g_exit_status = 0;
+	g_var.ex_sts = 0;
 	if ((*(args + 1)) && !ft_strncmp(args[1], "-n", 2) && skipn(args[1]))
 	{
 		i = skip_argof_n(args);
@@ -52,7 +52,7 @@ int	ft_echo(char **args)
 			if (args[i])
 				ft_putchar_fd(' ', 1);
 		}
-		return (g_exit_status);
+		return (g_var.ex_sts);
 	}
 	i = 1;
 	while ((*(args + 1)) && args[i])
@@ -62,5 +62,5 @@ int	ft_echo(char **args)
 			ft_putchar_fd(' ', 1);
 	}
 	ft_putchar_fd('\n', 1);
-	return (g_exit_status);
+	return (g_var.ex_sts);
 }

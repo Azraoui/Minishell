@@ -6,7 +6,7 @@
 /*   By: ael-azra <ael-azra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/18 18:05:14 by ael-azra          #+#    #+#             */
-/*   Updated: 2021/11/21 15:38:07 by ael-azra         ###   ########.fr       */
+/*   Updated: 2021/11/22 03:31:03 by ael-azra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ char	*norm_help1(char **args, char **sp_env)
 	i = 0;
 	while (!ft_lstat(args[0], 0) && sp_env[i])
 	{
+		if (!args[0])
+			exit(0);
 		tmp = ft_strjoin(sp_env[i], "/");
 		path = ft_strjoin(tmp, args[0]);
 		free(tmp);
@@ -71,8 +73,9 @@ pid_t	child_proses(t_ast *head, char ***env, t_pipe *p_pipe)
 		close(p_pipe->fd[1]);
 		if (is_builtins(head->arguments, env, head) == -1)
 			ft_execve(head->arguments, *env);
-		exit(g_exit_status);
+		exit(g_var.ex_sts);
 	}
+	g_var.child_id = pid;
 	close(p_pipe->fd[1]);
 	return (pid);
 }
